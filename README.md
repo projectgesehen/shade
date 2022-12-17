@@ -1,5 +1,5 @@
 # shade
-<h1>Shade is an easy to use PowerShell module to test website status. Shade will send email alerts if any of your test fail and also genrates a HTML report under your home folder like so C:\users\yourusername\shade\domains.html.
+<h1>Shade is an easy to use PowerShell module to test website status. Shade will send email alerts if any of your test fail and also generates a HTML report under your home folder like so C:\users\yourusername\shade\domains.html.
 
 Steps to use Shade:
   1. Run Set-ShadeEmail to configure your SMTP settings. NOTE MFA isn't supported and you'll need to setup an app password on platforms like gmail.com or        outlook.com.
