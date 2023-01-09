@@ -398,3 +398,42 @@ Function Set-ShadeTimer{
 }
 
 
+function Remove-ShadeTimer {
+    
+    <#
+        .SYNOPSIS
+        Removes Windows task for test-shade
+
+        .Description
+        The Remove-Shadetimer function opens an admin shell and removes the current Shade Windows task.
+
+        .EXAMPLE
+        Remove-Shadetimer
+
+        
+    #>
+
+
+    $script = {
+
+        Unregister-ScheduledTask -TaskName Shade -force 2>> $path\shadeerror.log
+
+
+    
+    }
+
+
+    try{
+        
+        Start-Process powershell -ArgumentList "-noexit -command (Invoke-Command -ScriptBlock {$script})" -verb RunAs
+        Write-Host "Your Shade timer has been removed!" -BackgroundColor Blue
+
+    }
+
+    catch{
+        Write-Host "Error removing Windows task! Check ${path}\shaderror.log" -BackgroundColor Red
+    }
+
+}
+
+
