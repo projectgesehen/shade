@@ -232,7 +232,7 @@ function Add-ShadeDomain {
         [string]$domain = $(Read-Host -Prompt "Enter one domain like test.com"),
         [string]$send = $(Read-Host -Prompt "Enter the address you want the alert sent from"),
         [string]$subject = $(Read-Host -Prompt "Enter the subject for alert emails"),
-        [string]$emails = $(Read-Host -Prompt "Enter the emails you want the alert sent to eq test@test.com, test2@test.com"),
+        [string]$emails = $(Read-Host -Prompt "Enter the emails you want the alert sent to. ex test@test.com, test2@test.com"),
         [string]$type = $(Read-Host -Prompt "Do you want to test this domain via ping, HTTP status, or both? Type ping, http, or both.")
         
     )
@@ -322,7 +322,7 @@ function Remove-ShadeDomain {
 
     $Current_Config.domains | Out-Host
 
-    [string]$domain = $(Read-Host -Prompt "Enter one domain you want to remove eq test.com")
+    [string]$domain = $(Read-Host -Prompt "Enter one domain you want to remove. ex test.com")
 
     foreach($i in $Current_Config.domains){
         if($i.domain -ne $domain){
@@ -395,6 +395,49 @@ Function Set-ShadeTimer{
     catch{
         Write-Host "Error making Windows task! Check ${path}\shaderror.log" -BackgroundColor Red
     }
+}
+
+
+function Remove-ShadeTimer {
+    
+    <#
+        .SYNOPSIS
+        Removes Windows task for test-shade
+
+        .Description
+        The Remove-Shadetimer function opens an admin shell and removes the current Shade Windows task.
+
+        .EXAMPLE
+        Remove-Shadetimer
+
+        
+    #>
+
+
+    $script = {
+
+        Unregister-ScheduledTask -TaskName Shade -Confirm:$false 2>> $path\shadeerror.log
+
+        Read-Host -Prompt "'Press enter to close this window!'"
+
+        exit
+
+
+    
+    }
+
+
+    try{
+        
+        Start-Process powershell -ArgumentList "-noexit -command (Invoke-Command -ScriptBlock {$script})" -verb RunAs
+        Write-Host "Your Shade timer has been removed!" -BackgroundColor Blue
+
+    }
+
+    catch{
+        Write-Host "Error removing Windows task! Check ${path}\shaderror.log" -BackgroundColor Red
+    }
+
 }
 
 
