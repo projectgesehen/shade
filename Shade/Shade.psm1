@@ -232,7 +232,7 @@ function Add-ShadeDomain {
         [string]$domain = $(Read-Host -Prompt "Enter one domain like test.com"),
         [string]$send = $(Read-Host -Prompt "Enter the address you want the alert sent from"),
         [string]$subject = $(Read-Host -Prompt "Enter the subject for alert emails"),
-        [string]$emails = $(Read-Host -Prompt "Enter the emails you want the alert sent to eq test@test.com, test2@test.com"),
+        [string]$emails = $(Read-Host -Prompt "Enter the emails you want the alert sent to. ex test@test.com, test2@test.com"),
         [string]$type = $(Read-Host -Prompt "Do you want to test this domain via ping, HTTP status, or both? Type ping, http, or both.")
         
     )
@@ -322,7 +322,7 @@ function Remove-ShadeDomain {
 
     $Current_Config.domains | Out-Host
 
-    [string]$domain = $(Read-Host -Prompt "Enter one domain you want to remove eq test.com")
+    [string]$domain = $(Read-Host -Prompt "Enter one domain you want to remove. ex test.com")
 
     foreach($i in $Current_Config.domains){
         if($i.domain -ne $domain){
