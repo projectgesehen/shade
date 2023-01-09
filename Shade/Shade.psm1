@@ -416,7 +416,11 @@ function Remove-ShadeTimer {
 
     $script = {
 
-        Unregister-ScheduledTask -TaskName Shade -force 2>> $path\shadeerror.log
+        Unregister-ScheduledTask -TaskName Shade -Confirm:$false 2>> $path\shadeerror.log
+
+        Read-Host -Prompt "'Press enter to close this window!'"
+
+        exit
 
 
     
